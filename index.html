@@ -1,0 +1,1007 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartShop | Sorting Algorithms Learning System</title>
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .lab-panel {
+      background: #111b30;
+      border: 1px solid #263854;
+      border-radius: 14px;
+      padding: 22px;
+      margin-top: 22px;
+    }
+
+    .lab-controls, .algorithm-buttons, .example-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .lab-controls input {
+      flex: 1;
+      min-width: 220px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #344665;
+      background: #080f1e;
+      color: white;
+    }
+
+    .algorithm-buttons button,
+    .example-buttons button,
+    .lab-controls button,
+    .step-controls button {
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid #344665;
+      background: #1a2942;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    .algorithm-buttons button.selected {
+      background: #347df0;
+    }
+
+    #sortingBars {
+      min-height: 220px;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      gap: 7px;
+      padding: 20px 5px;
+      border-bottom: 1px solid #344665;
+      overflow-x: auto;
+    }
+
+    .sort-bar {
+      min-width: 25px;
+      max-width: 60px;
+      flex: 1;
+      background: linear-gradient(#72d2ff, #347df0);
+      border-radius: 6px 6px 0 0;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+    }
+
+    .sort-bar span {
+      position: absolute;
+      top: -22px;
+      white-space: nowrap;
+    }
+
+    .sort-bar.active {
+      background: #f59e0b;
+    }
+
+    .sort-bar.sorted {
+      background: #22c55e;
+    }
+
+    .step-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .info-box {
+      padding: 15px;
+      border: 1px solid #263854;
+      border-radius: 10px;
+      background: #0b1425;
+    }
+
+    .worked-example {
+      background: #0b1425;
+      border: 1px solid #263854;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 18px 0;
+      overflow-wrap: anywhere;
+    }
+
+    .worked-example h3 {
+      color: #72b2ff;
+    }
+
+    .worked-example pre {
+      white-space: pre-wrap;
+      color: #dbeafe;
+      line-height: 1.8;
+      font-family: Consolas, monospace;
+    }
+
+    .code-block {
+      background: #050b16;
+      padding: 18px;
+      overflow-x: auto;
+      border-radius: 10px;
+      color: #dbeafe;
+      font-size: 13px;
+    }
+
+    .quiz-option {
+      display: block;
+      margin: 10px 0;
+      padding: 12px;
+      background: #111b30;
+      border: 1px solid #263854;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #quizFeedback {
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    .product-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .product-table th,
+    .product-table td {
+      padding: 12px;
+      border-bottom: 1px solid #263854;
+      text-align: left;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    @media(max-width: 600px) {
+      .lab-panel { padding: 14px; }
+      #sortingBars { gap: 5px; }
+      .sort-bar { min-width: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="logo">SmartShop.</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#learn">Learn</a>
+    <a href="#algorithms">Algorithms</a>
+    <a href="#sorting-lab">Sorting Lab</a>
+    <a href="#smartshop">SmartShop</a>
+    <a href="#quiz">Quiz</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <span class="tag">DATA STRUCTURES MINI PROJECT</span>
+      <h1>Learn Sorting.<br><span>Think Smarter.</span></h1>
+
+      <p class="description">
+        Learn sorting algorithms with simple explanations, notebook-style
+        solved examples, C programs and interactive step-by-step practice.
+        Discover how sorting helps rank real-world products.
+      </p>
+
+      <div class="hero-buttons">
+        <a class="btn primary" href="#sorting-lab">Try Sorting Lab</a>
+        <a class="btn secondary" href="#learn">Start Learning</a>
+      </div>
+
+      <div class="stats">
+        <div><strong>5</strong><br>Algorithms</div>
+        <div><strong>Interactive</strong><br>Practice Lab</div>
+        <div><strong>Real World</strong><br>Product Ranking</div>
+      </div>
+    </div>
+
+    <div class="visual-card">
+      <div class="visual-header">
+        <strong>Sorting Visualization</strong>
+        <span style="color:#22c55e">● Ready</span>
+      </div>
+
+      <div class="bars">
+        <div style="height:45%"></div>
+        <div style="height:75%"></div>
+        <div style="height:55%"></div>
+        <div style="height:95%"></div>
+        <div style="height:35%"></div>
+        <div style="height:65%"></div>
+        <div style="height:50%"></div>
+      </div>
+
+      <p class="visual-caption">
+        Sorting arranges data in a meaningful order.
+      </p>
+    </div>
+  </section>
+
+  <!-- LEARN -->
+  <section class="section" id="learn">
+    <div class="section-heading">
+      <span class="tag">START HERE</span>
+      <h2>Learn the Basics</h2>
+      <p>Understand sorting before solving examples.</p>
+    </div>
+
+    <div class="card-grid">
+      <article class="card">
+        <div class="card-icon">01</div>
+        <h3>What is Sorting?</h3>
+        <p>Sorting arranges data in ascending or descending order.</p>
+        <p><b>Example:</b> 30, 10, 20 becomes 10, 20, 30.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">02</div>
+        <h3>Why Sorting?</h3>
+        <p>It helps us find information faster and organize data.</p>
+        <p><b>Example:</b> Arrange products by lowest price.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">03</div>
+        <h3>How We Learn</h3>
+        <p>Follow each comparison, movement and final sorted array.</p>
+        <p><b>Practice:</b> Use the Sorting Lab below.</p>
+      </article>
+    </div>
+
+    <div class="worked-example">
+      <h3>Basic Example: Ascending Order</h3>
+      <pre>
+Original array:
+30  10  20
+
+Step 1: Find the smallest number → 10
+Step 2: Place the numbers in increasing order
+Step 3: Check the result
+
+Sorted array:
+10  20  30
+      </pre>
+    </div>
+  </section>
+
+  <!-- ALGORITHMS -->
+  <section class="section alternate" id="algorithms">
+    <div class="section-heading">
+      <span class="tag">FIVE ALGORITHMS</span>
+      <h2>Sorting Algorithms</h2>
+      <p>Read the concept, follow the steps and explore the C program.</p>
+    </div>
+
+    <div class="algorithm-grid">
+
+      <article class="card">
+        <h3>1. Bubble Sort</h3>
+        <p>Compares adjacent elements and swaps them if they are in the wrong order.</p>
+        <p><b>Time:</b> O(n²) average/worst</p>
+        <p><b>Space:</b> O(1)</p>
+        <ol>
+          <li>Compare adjacent values.</li>
+          <li>Swap if left is greater.</li>
+          <li>Repeat until sorted.</li>
+        </ol>
+        <details>
+          <summary>View C program</summary>
+          <pre class="code-block">void bubbleSort(int a[], int n) {
+    int i, j, temp;
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            if (a[j] > a[j + 1]) {
+                temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
+}</pre>
+        </details>
+        <button class="btn primary" onclick="selectAlgorithm('bubble'); document.getElementById('sorting-lab').scrollIntoView()">Practice</button>
+      </article>
+
+      <article class="card">
+        <h3>2. Selection Sort</h3>
+        <p>Finds the smallest element in the unsorted part and puts it in the correct position.</p>
+        <p><b>Time:</b> O(n²)</p>
+        <p><b>Space:</b> O(1)</p>
+        <ol>
+          <li>Assume the first unsorted value is minimum.</li>
+          <li>Search for a smaller value.</li>
+          <li>Swap with the first unsorted value.</li>
+        </ol>
+        <details>
+          <summary>View C program</summary>
+          <pre class="code-block">void selectionSort(int a[], int n) {
+    int i, j, min, temp;
+    for (i = 0; i < n - 1; i++) {
+        min = i;
+        for (j = i + 1; j < n; j++) {
+            if (a[j] < a[min])
+                min = j;
+        }
+        temp = a[i];
+        a[i] = a[min];
+        a[min] = temp;
+    }
+}</pre>
+        </details>
+        <button class="btn primary" onclick="selectAlgorithm('selection'); document.getElementById('sorting-lab').scrollIntoView()">Practice</button>
+      </article>
+
+      <article class="card">
+        <h3>3. Insertion Sort</h3>
+        <p>Takes one element and inserts it into the correct position in the sorted part.</p>
+        <p><b>Time:</b> O(n²) average/worst</p>
+        <p><b>Space:</b> O(1)</p>
+        <ol>
+          <li>Keep the first element sorted.</li>
+          <li>Take the next element as key.</li>
+          <li>Shift larger elements right.</li>
+          <li>Insert the key.</li>
+        </ol>
+        <details>
+          <summary>View C program</summary>
+          <pre class="code-block">void insertionSort(int a[], int n) {
+    int i, j, key;
+    for (i = 1; i < n; i++) {
+        key = a[i];
+        j = i - 1;
+        while (j >= 0 && a[j] > key) {
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = key;
+    }
+}</pre>
+        </details>
+        <button class="btn primary" onclick="selectAlgorithm('insertion'); document.getElementById('sorting-lab').scrollIntoView()">Practice</button>
+      </article>
+
+      <article class="card">
+        <h3>4. Merge Sort</h3>
+        <p>Divides the array, sorts the smaller parts and merges them in order.</p>
+        <p><b>Time:</b> O(n log n)</p>
+        <p><b>Space:</b> O(n)</p>
+        <ol>
+          <li>Divide the array into halves.</li>
+          <li>Keep dividing into smaller parts.</li>
+          <li>Sort and merge the parts.</li>
+        </ol>
+        <details>
+          <summary>View C program</summary>
+          <pre class="code-block">void merge(int a[], int l, int m, int r) {
+    int i = l, j = m + 1, k = 0;
+    int temp[1000];
+
+    while (i <= m && j <= r) {
+        if (a[i] <= a[j])
+            temp[k++] = a[i++];
+        else
+            temp[k++] = a[j++];
+    }
+
+    while (i <= m) temp[k++] = a[i++];
+    while (j <= r) temp[k++] = a[j++];
+
+    for (i = l, k = 0; i <= r; i++, k++)
+        a[i] = temp[k];
+}
+
+void mergeSort(int a[], int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+        mergeSort(a, l, m);
+        mergeSort(a, m + 1, r);
+        merge(a, l, m, r);
+    }
+}</pre>
+        </details>
+        <button class="btn primary" onclick="selectAlgorithm('merge'); document.getElementById('sorting-lab').scrollIntoView()">Practice</button>
+      </article>
+
+      <article class="card">
+        <h3>5. Quick Sort</h3>
+        <p>Chooses a pivot, places smaller elements on its left and larger elements on its right, then sorts both parts.</p>
+        <p><b>Time:</b> O(n log n) average</p>
+        <p><b>Space:</b> O(log n) average</p>
+        <ol>
+          <li>Choose a pivot.</li>
+          <li>Partition the array around it.</li>
+          <li>Sort the left and right parts.</li>
+        </ol>
+        <details>
+          <summary>View C program</summary>
+          <pre class="code-block">int partition(int a[], int low, int high) {
+    int pivot = a[high];
+    int i = low - 1;
+
+    for (int j = low; j < high; j++) {
+        if (a[j] < pivot) {
+            i++;
+            int temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+        }
+    }
+
+    int temp = a[i + 1];
+    a[i + 1] = a[high];
+    a[high] = temp;
+
+    return i + 1;
+}
+
+void quickSort(int a[], int low, int high) {
+    if (low < high) {
+        int p = partition(a, low, high);
+        quickSort(a, low, p - 1);
+        quickSort(a, p + 1, high);
+    }
+}</pre>
+        </details>
+        <button class="btn primary" onclick="selectAlgorithm('quick'); document.getElementById('sorting-lab').scrollIntoView()">Practice</button>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- SORTING LAB -->
+  <section class="section" id="sorting-lab">
+    <div class="section-heading">
+      <span class="tag">INTERACTIVE PRACTICE</span>
+      <h2>Sorting Lab</h2>
+      <p>Choose an algorithm and watch the numbers move step by step.</p>
+    </div>
+
+    <div class="lab-panel">
+      <h3>Step 1: Choose an algorithm</h3>
+
+      <div class="algorithm-buttons">
+        <button type="button" data-algorithm="bubble">Bubble Sort</button>
+        <button type="button" data-algorithm="selection">Selection Sort</button>
+        <button type="button" data-algorithm="insertion">Insertion Sort</button>
+        <button type="button" data-algorithm="merge">Merge Sort</button>
+        <button type="button" data-algorithm="quick">Quick Sort</button>
+      </div>
+
+      <h3>Step 2: Enter your numbers</h3>
+      <p>Separate numbers using commas or spaces. Example: 89, 12, 34, 55, 60</p>
+
+      <div class="lab-controls">
+        <input id="arrayInput" type="text"
+          value="89, 12, 34, 55, 60, 36, 52, 41, 78"
+          placeholder="Enter numbers">
+        <button type="button" id="startSorting">Start Sorting</button>
+        <button type="button" id="resetSorting">Reset</button>
+      </div>
+
+      <div class="example-buttons">
+        <button type="button" data-example="89,12,34,55,60,36,52,41,78">Notebook Example</button>
+        <button type="button" data-example="29,10,14,37,13">Insertion Example</button>
+        <button type="button" data-example="5,3,8,1">Small Example</button>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-box">
+          <h3 id="selectedAlgorithmName">Bubble Sort</h3>
+          <p id="algorithmExplanation"></p>
+        </div>
+        <div class="info-box">
+          <b>Time complexity</b>
+          <p id="algorithmTime"></p>
+          <b>Space complexity</b>
+          <p id="algorithmSpace"></p>
+        </div>
+        <div class="info-box">
+          <b>Algorithm steps</b>
+          <ol id="algorithmSteps"></ol>
+        </div>
+      </div>
+
+      <h3>Step-by-step visualization</h3>
+      <p id="stepDescription">Choose an algorithm and click Start Sorting.</p>
+      <p id="stepCounter">Step 0 of 0</p>
+
+      <div id="sortingBars"></div>
+
+      <div class="step-controls">
+        <button type="button" id="previousStep" disabled>← Previous Step</button>
+        <button type="button" id="nextStep" disabled>Next Step →</button>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-box">
+          <b>Comparisons</b>
+          <p id="comparisonCount">0</p>
+        </div>
+        <div class="info-box">
+          <b>Swaps / movements</b>
+          <p id="swapCount">0</p>
+        </div>
+        <div class="info-box">
+          <b>Current array</b>
+          <p id="arrayOutput">—</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKED EXAMPLES -->
+  <section class="section alternate" id="worked-examples">
+    <div class="section-heading">
+      <span class="tag">NOTEBOOK STYLE</span>
+      <h2>Worked Examples</h2>
+      <p>Read the solution, then load it into the Sorting Lab to practise.</p>
+    </div>
+
+    <div class="worked-example">
+      <h3>Example 1: Insertion Sort</h3>
+      <p>Sort the array: 29, 10, 14, 37, 13</p>
+      <pre>
+Initial array:
+29  10  14  37  13
+
+Pass 1: Key = 10
+Shift 29 right and insert 10.
+10  29  14  37  13
+
+Pass 2: Key = 14
+Shift 29 right and insert 14.
+10  14  29  37  13
+
+Pass 3: Key = 37
+37 is already in the correct position.
+10  14  29  37  13
+
+Pass 4: Key = 13
+Shift 37, 29 and 14 right.
+10  13  14  29  37
+
+Final sorted array:
+10  13  14  29  37
+      </pre>
+      <button class="btn primary"
+        onclick="openWorkedExample('insertion',[29,10,14,37,13])">
+        Try This Example
+      </button>
+    </div>
+
+    
+<div class="example-card">
+    <h3>Example 2: Merge Sort</h3>
+
+    <p>Sort the array: 89, 12, 34, 55, 60, 36, 52, 41, 78</p>
+
+    <p><strong>Step 1: Initial array</strong></p>
+    <pre>89  12  34  55  60  36  52  41  78</pre>
+
+    <p><strong>Step 2: Divide the array into two parts</strong></p>
+    <pre>
+[89, 12, 34, 55]        [60, 36, 52, 41, 78]
+    </pre>
+
+    <p><strong>Step 3: Divide again</strong></p>
+    <pre>
+[89, 12] [34, 55]       [60, 36] [52, 41, 78]
+    </pre>
+
+    <p><strong>Step 4: Divide into smaller parts</strong></p>
+    <pre>
+[89] [12] [34] [55]     [60] [36] [52] [41, 78]
+    </pre>
+
+    <p><strong>Step 5: Divide until each part has one element</strong></p>
+    <pre>
+[89] [12] [34] [55] [60] [36] [52] [41] [78]
+    </pre>
+
+    <p><strong>Step 6: Merge in ascending order</strong></p>
+    <pre>
+[12, 89] [34, 55]       [36, 60] [41, 78]
+    </pre>
+
+    <p><strong>Step 7: Merge the smaller parts</strong></p>
+    <pre>
+[12, 34, 55, 89]       [36, 41, 52, 60, 78]
+    </pre>
+
+    <p><strong>Step 8: Merge both halves</strong></p>
+    <pre>
+[12, 34, 36, 41, 52, 55, 60, 78, 89]
+    </pre>
+
+    <p><strong>Final sorted array:</strong></p>
+    <pre>12  34  36  41  52  55  60  78  89</pre>
+
+    <button class="btn" onclick="openWorkedExample('merge', [89,12,34,55,60,36,52,41,78])">
+        Try This Example
+    </button>
+</div>
+
+    <div class="worked-example">
+      <h3>Example 3: Selection Sort</h3>
+      <p>Sort the array: 29, 10, 14, 37, 13</p>
+      <pre>
+Initial array:
+29  10  14  37  13
+
+Pass 1: Find minimum 10 and swap with 29.
+10  29  14  37  13
+
+Pass 2: Find minimum 13 in the remaining part.
+10  13  14  37  29
+
+Pass 3: Minimum is 14, so it stays in place.
+10  13  14  37  29
+
+Pass 4: Find 29 and swap with 37.
+10  13  14  29  37
+
+Final sorted array:
+10  13  14  29  37
+      </pre>
+      <button class="btn primary"
+        onclick="openWorkedExample('selection',[29,10,14,37,13])">
+        Try This Example
+      </button>
+    </div>
+
+    <div class="worked-example">
+      <h3>Example 4: Quick Sort</h3>
+      <p>Sort the array: 6, 3, 8, 2, 5</p>
+      <pre>
+Initial array:
+6  3  8  2  5
+
+Step 1: Choose 5 as the pivot.
+Step 2: Partition values around the pivot.
+3  2  5  6  8
+
+Step 3: Sort the left part [3, 2].
+2  3  5  6  8
+
+Step 4: The right part [6, 8] is already sorted.
+
+Final sorted array:
+2  3  5  6  8
+      </pre>
+      <button class="btn primary"
+        onclick="openWorkedExample('quick',[6,3,8,2,5])">
+        Try This Example
+      </button>
+    </div>
+
+    <div class="worked-example">
+      <h3>Example 5: Bubble Sort</h3>
+      <p>Sort the array: 5, 3, 8, 1</p>
+      <pre>
+Initial array:
+5  3  8  1
+
+Pass 1:
+Compare 5 and 3 → swap.
+3  5  8  1
+
+Compare 5 and 8 → no swap.
+3  5  8  1
+
+Compare 8 and 1 → swap.
+3  5  1  8
+
+Pass 2:
+Compare 3 and 5 → no swap.
+Compare 5 and 1 → swap.
+3  1  5  8
+
+Pass 3:
+Compare 3 and 1 → swap.
+1  3  5  8
+
+Final sorted array:
+1  3  5  8
+      </pre>
+      <button class="btn primary"
+        onclick="openWorkedExample('bubble',[5,3,8,1])">
+        Try This Example
+      </button>
+    </div>
+  </section>
+
+  <!-- PRODUCT RANKING -->
+  <section class="section" id="smartshop">
+    <div class="section-heading">
+      <span class="tag">REAL-WORLD APPLICATION</span>
+      <h2>SmartShop Product Ranking</h2>
+      <p>Sort products by price, rating or discount.</p>
+    </div>
+
+    <div class="lab-panel">
+      <label for="productSort"><b>Sort products by:</b></label>
+      <select id="productSort" style="padding:10px; margin:10px; border-radius:8px">
+        <option value="price">Price: Low to High</option>
+        <option value="rating">Rating: High to Low</option>
+        <option value="discount">Discount: High to Low</option>
+      </select>
+
+      <button class="btn primary" id="sortProducts">Sort Products</button>
+
+      <div class="table-wrapper">
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price (₹)</th>
+              <th>Rating</th>
+              <th>Discount</th>
+            </tr>
+          </thead>
+          <tbody id="productRows"></tbody>
+        </table>
+      </div>
+
+      <p id="productMessage"></p>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="section alternate" id="comparison">
+    <div class="section-heading">
+      <span class="tag">QUICK REVISION</span>
+      <h2>Algorithm Comparison</h2>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>Algorithm</th>
+            <th>Best Time</th>
+            <th>Average Time</th>
+            <th>Worst Time</th>
+            <th>Space</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Bubble Sort</td><td>O(n)*</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td></tr>
+          <tr><td>Selection Sort</td><td>O(n²)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td></tr>
+          <tr><td>Insertion Sort</td><td>O(n)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td></tr>
+          <tr><td>Merge Sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n)</td></tr>
+          <tr><td>Quick Sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n²)</td><td>O(log n)**</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>* Bubble Sort best case assumes early-stop optimization.
+      ** Quick Sort worst-case auxiliary space can be O(n).</p>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="section" id="quiz">
+    <div class="section-heading">
+      <span class="tag">TEST YOUR KNOWLEDGE</span>
+      <h2>Sorting Quiz</h2>
+      <p>Choose an answer and check your understanding.</p>
+    </div>
+
+    <div class="lab-panel">
+      <h3 id="quizQuestion"></h3>
+      <div id="quizOptions"></div>
+      <p id="quizFeedback" aria-live="polite"></p>
+
+      <button class="btn primary" id="checkAnswer">Check Answer</button>
+      <button class="btn secondary" id="nextQuestion">Next Question</button>
+
+      <p id="quizScore">Score: 0</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>SmartShop — Data Structures Mini Project</p>
+  <p>Learn • Practice • Understand</p>
+</footer>
+
+<script src="js/app.js"></script>
+
+<script>
+  const products = [
+    {name: "Wireless Mouse", price: 499, rating: 4.3, discount: 20},
+    {name: "Keyboard", price: 899, rating: 4.5, discount: 15},
+    {name: "Headphones", price: 1299, rating: 4.7, discount: 25},
+    {name: "USB Drive", price: 399, rating: 4.1, discount: 10},
+    {name: "Laptop Stand", price: 699, rating: 4.4, discount: 30}
+  ];
+
+  function showProducts() {
+    const method = document.getElementById("productSort").value;
+    const sorted = [...products];
+
+    if (method === "price") sorted.sort((a, b) => a.price - b.price);
+    if (method === "rating") sorted.sort((a, b) => b.rating - a.rating);
+    if (method === "discount") sorted.sort((a, b) => b.discount - a.discount);
+
+    const tbody = document.getElementById("productRows");
+    tbody.innerHTML = "";
+
+    sorted.forEach(product => {
+      const row = document.createElement("tr");
+
+      [product.name, `₹${product.price}`, product.rating, `${product.discount}%`]
+        .forEach(value => {
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          row.appendChild(cell);
+        });
+
+      tbody.appendChild(row);
+    });
+
+    document.getElementById("productMessage").textContent =
+      `Showing ${sorted.length} products sorted by ${method}.`;
+  }
+
+  document.getElementById("sortProducts").addEventListener("click", showProducts);
+  document.getElementById("productSort").addEventListener("change", showProducts);
+  showProducts();
+
+  const questions = [
+    {
+      q: "1. Which sorting algorithm compares adjacent elements?",
+      options: ["Merge Sort", "Bubble Sort", "Quick Sort", "Selection Sort"],
+      answer: 1,
+      explanation: "Bubble Sort compares adjacent elements and swaps them when necessary."
+    },
+    {
+      q: "2. Which algorithm uses a pivot?",
+      options: ["Insertion Sort", "Bubble Sort", "Quick Sort", "Selection Sort"],
+      answer: 2,
+      explanation: "Quick Sort uses a pivot to partition the array."
+    },
+    {
+      q: "3. What is the average time complexity of Merge Sort?",
+      options: ["O(n)", "O(n²)", "O(log n)", "O(n log n)"],
+      answer: 3,
+      explanation: "Merge Sort takes O(n log n) time in its best, average and worst cases."
+    },
+    {
+      q: "4. Which algorithm inserts a key into its correct position?",
+      options: ["Insertion Sort", "Quick Sort", "Merge Sort", "Bubble Sort"],
+      answer: 0,
+      explanation: "Insertion Sort takes a key and inserts it into the sorted portion."
+    },
+    {
+      q: "5. What is the ascending order of 30, 10, 20?",
+      options: ["30, 20, 10", "10, 20, 30", "20, 10, 30", "10, 30, 20"],
+      answer: 1,
+      explanation: "Ascending order means smallest to largest: 10, 20, 30."
+    }
+  ];
+
+  let questionIndex = 0;
+  let score = 0;
+  let answered = false;
+
+  function showQuestion() {
+    const q = questions[questionIndex];
+
+    document.getElementById("quizQuestion").textContent = q.q;
+    document.getElementById("quizFeedback").textContent = "";
+    document.getElementById("checkAnswer").disabled = false;
+    document.getElementById("nextQuestion").disabled = true;
+    answered = false;
+
+    const options = document.getElementById("quizOptions");
+    options.innerHTML = "";
+
+    q.options.forEach((option, index) => {
+      const label = document.createElement("label");
+      label.className = "quiz-option";
+
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "quizAnswer";
+      radio.value = index;
+
+      label.appendChild(radio);
+      label.appendChild(document.createTextNode(" " + option));
+      options.appendChild(label);
+    });
+
+    document.getElementById("quizScore").textContent =
+      `Question ${questionIndex + 1} of ${questions.length} | Score: ${score}`;
+  }
+
+  document.getElementById("checkAnswer").addEventListener("click", () => {
+    if (answered) return;
+
+    const selected = document.querySelector('input[name="quizAnswer"]:checked');
+
+    if (!selected) {
+      document.getElementById("quizFeedback").textContent =
+        "Please select an answer first.";
+      return;
+    }
+
+    answered = true;
+    const q = questions[questionIndex];
+
+    if (Number(selected.value) === q.answer) {
+      score++;
+      document.getElementById("quizFeedback").textContent =
+        "Correct! " + q.explanation;
+    } else {
+      document.getElementById("quizFeedback").textContent =
+        "Not quite. Correct answer: " + q.options[q.answer] + ". " + q.explanation;
+    }
+
+    document.querySelectorAll('input[name="quizAnswer"]').forEach(radio => {
+      radio.disabled = true;
+    });
+
+    document.getElementById("quizScore").textContent =
+      `Question ${questionIndex + 1} of ${questions.length} | Score: ${score}`;
+
+    document.getElementById("checkAnswer").disabled = true;
+    document.getElementById("nextQuestion").disabled = false;
+  });
+
+  document.getElementById("nextQuestion").addEventListener("click", () => {
+    if (!answered) return;
+
+    if (questionIndex < questions.length - 1) {
+      questionIndex++;
+      showQuestion();
+    } else {
+      document.getElementById("quizQuestion").textContent = "Quiz completed!";
+      document.getElementById("quizOptions").innerHTML = "";
+      document.getElementById("quizFeedback").textContent =
+        `You scored ${score} out of ${questions.length}.`;
+
+      document.getElementById("quizScore").textContent =
+        `Final score: ${score}/${questions.length}`;
+
+      document.getElementById("checkAnswer").disabled = true;
+      document.getElementById("nextQuestion").disabled = true;
+    }
+  });
+
+  showQuestion();
+</script>
+
+</body>
+</html>
